@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и проверка безопасности рабочих инструментов, данных и интеграций.">
+  <meta name="theme-color" content="#0b1220">
+  <title>RAENKO — AI-автоматизация и безопасность инструментов</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">К содержанию</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-grid">
+      <a class="brand" href="#top" aria-label="RAENKO — на главный экран">
+        <span class="brand-mark">R</span>
+        <span>
+          <strong>RAENKO</strong>
+          <small>AI automation / security</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#directions">Направления</a>
+        <a href="#audit">Аудит</a>
+        <a href="#process">Процесс</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section-dark">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">AI-автоматизация · безопасность инструментов · контроль интеграций</p>
+          <h1>Перевожу ручные процессы в управляемые AI-сценарии.</h1>
+          <p class="lead">Разбираю операции бизнеса, нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей и реакции рабочих инструментов на нестандартные ситуации.</p>
+          <div class="actions">
+            <a class="button button-primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу</a>
+            <a class="button button-secondary" href="#audit">Что входит в проверку</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal" aria-label="Основной принцип работы">
+          <div class="panel-status">security first</div>
+          <h2>Автоматизация не должна создавать неконтролируемые риски.</h2>
+          <p>Если рабочий инструмент может удалять, отправлять, считать деньги, принимать заявки или видеть клиентские данные — ему нужны проверки прав, журнал действий и понятные границы доступа.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="directions">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Фокус</p>
+          <h2>На сайте остаются только два направления: AI-автоматизация и безопасность.</h2>
+          <p class="intro">Сайт объясняет, какие задачи можно передать инструментам, где нужен человеческий контроль и как снизить риск при работе с данными.</p>
+        </div>
+
+        <div class="cards two-columns">
+          <article class="card reveal">
+            <h3>AI-автоматизация процессов</h3>
+            <p>Сценарии, которые сокращают ручную работу, но не убирают ответственность человека там, где ошибка дорогая.</p>
+            <ul class="check-list">
+              <li>первичная обработка заявок и сообщений;</li>
+              <li>подготовка черновиков документов и ответов;</li>
+              <li>маршрутизация задач между людьми и сервисами;</li>
+              <li>связки Telegram, Make, Airtable, CRM и AI-моделей;</li>
+              <li>регламенты для команды: что можно доверить боту, а что нельзя.</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <h3>Безопасность рабочих инструментов и интеграций</h3>
+            <p>Проверка не «красоты кнопок», а серверной логики: кто может выполнить действие, над каким объектом и при каких условиях.</p>
+            <ul class="check-list">
+              <li>callback_data, кнопки и скрытые команды;</li>
+              <li>роли пользователей, админ-доступы и ownership checks;</li>
+              <li>секреты: bot token, API keys, webhook secrets;</li>
+              <li>защита от IDOR/BOLA и перебора ID;</li>
+              <li>журналирование действий и безопасная обработка ошибок.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="audit">
+      <div class="container audit-grid">
+        <div class="section-head reveal">
+          <p class="kicker">Security audit</p>
+          <h2>Что проверяю до запуска рабочего инструмента.</h2>
+          <p class="intro">Это относится к Telegram-ботам, mini app, CRM и интеграциям: интерфейсная кнопка не является правом доступа, а внешний ID нельзя считать доверенным вводом.</p>
+        </div>
+
+        <div class="audit-list reveal">
+          <div class="audit-item">
+            <strong>Идентификация</strong>
+            <p>Бэкенд берёт пользователя из Telegram update, а не из произвольного поля запроса.</p>
+          </div>
+          <div class="audit-item">
+            <strong>Авторизация</strong>
+            <p>Каждое чувствительное действие проверяет роль пользователя на сервере.</p>
+          </div>
+          <div class="audit-item">
+            <strong>Владение объектом</strong>
+            <p>Объект загружается не просто по ID, а с проверкой owner_id / tenant_id / разрешения.</p>
+          </div>
+          <div class="audit-item">
+            <strong>Опасные операции</strong>
+            <p>Удаление, массовая рассылка, выгрузка данных и финансовые действия требуют отдельного барьера.</p>
+          </div>
+          <div class="audit-item">
+            <strong>Секреты</strong>
+            <p>Токены не хранятся во фронтенде, публичном GitHub, логах и скриншотах.</p>
+          </div>
+          <div class="audit-item">
+            <strong>Следы действий</strong>
+            <p>По каждому важному действию остаётся audit log: кто, что, когда, над каким объектом, с каким результатом.</p>
+          </div>
+        </div>
+        <aside class="audit-result reveal">
+          <p class="kicker">На выходе</p>
+          <h3>Понятная карта рисков и действий.</h3>
+          <ul class="check-list">
+            <li>что можно оставить без изменений;</li>
+            <li>что нужно ограничить или перепроверить;</li>
+            <li>какие доступы, секреты и сценарии требуют контроля;</li>
+            <li>какой порядок безопасного исправления.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Порядок работы</p>
+          <h2>Сначала схема процесса. Потом автоматизация. Потом проверка рисков.</h2>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <h3>Разбор</h3>
+            <p>Фиксируем процесс, участников, данные, сервисы, точки ручной работы и цену ошибки.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Архитектура</h3>
+            <p>Определяем, где нужен бот, где AI-модель, где таблица/CRM, а где действие должен подтверждать человек.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Сборка</h3>
+            <p>Собираем сценарий, интеграции, промпты, поля данных и рабочий регламент.</p>
+          </article>
+          <article class="step reveal">
+            <h3>Проверка</h3>
+            <p>Проверяем права, callback, доступы, секреты, ошибки, логи и поведение при нестандартных действиях.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark compact" id="contact">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <p class="eyebrow">Первичный разбор</p>
+          <h2>Опишите один процесс, который сейчас мешает работать.</h2>
+          <p class="lead small">Для первичного разбора достаточно трёх пунктов:</p>
+          <ol class="brief-list">
+            <li>Какой процесс хотите упростить.</li>
+            <li>Кто в нём участвует.</li>
+            <li>Где возникают задержки, ошибки или риск для данных.</li>
+          </ol>
+        </div>
+
+        <div class="contact-card reveal">
+          <a class="contact-main" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">
+            <span>Telegram</span>
+            <strong>@a_raenko</strong>
+          </a>
+          <a href="mailto:alekseiraenko@yandex.ru">alekseiraenko@yandex.ru</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <span>© 2026 RAENKO</span>
+      <a href="#top">Наверх</a>
+    </div>
+  </footer>
+
+  <script src="/assets/main.js" defer></script>
+</body>
+</html>
+
