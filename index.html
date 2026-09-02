@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и аудит безопасности Telegram-ботов, mini app, CRM и интеграций.">
+  <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и проверка безопасности рабочих инструментов, данных и интеграций.">
   <meta name="theme-color" content="#0b1220">
-  <title>RAENKO — AI-автоматизация и безопасность ботов</title>
+  <title>RAENKO — AI-автоматизация и безопасность инструментов</title>
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -17,7 +17,7 @@
         <span class="brand-mark">R</span>
         <span>
           <strong>RAENKO</strong>
-          <small>AI automation / bot security</small>
+          <small>AI automation / security</small>
         </span>
       </a>
 
@@ -34,19 +34,19 @@
     <section class="hero section-dark">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <p class="eyebrow">AI-автоматизация · безопасность ботов · контроль интеграций</p>
+          <p class="eyebrow">AI-автоматизация · безопасность инструментов · контроль интеграций</p>
           <h1>Перевожу ручные процессы в управляемые AI-сценарии.</h1>
-          <p class="lead">Разбираю операции бизнеса, нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей и поведение ботов в нестандартных ситуациях.</p>
+          <p class="lead">Разбираю операции бизнеса, нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей и реакции рабочих инструментов на нестандартные ситуации.</p>
           <div class="actions">
             <a class="button button-primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу</a>
-            <a class="button button-secondary" href="#audit">Что проверять в боте</a>
+            <a class="button button-secondary" href="#audit">Что входит в проверку</a>
           </div>
         </div>
 
         <aside class="hero-panel reveal" aria-label="Основной принцип работы">
           <div class="panel-status">security first</div>
-          <h2>Автоматизация не должна становиться дырой в бизнесе.</h2>
-          <p>Если бот умеет удалять, отправлять, считать деньги, принимать заявки или видеть клиентские данные — у него должны быть серверные проверки прав, журнал действий и понятные границы доступа.</p>
+          <h2>Автоматизация не должна создавать неконтролируемые риски.</h2>
+          <p>Если рабочий инструмент может удалять, отправлять, считать деньги, принимать заявки или видеть клиентские данные — ему нужны проверки прав, журнал действий и понятные границы доступа.</p>
         </aside>
       </div>
     </section>
@@ -61,7 +61,6 @@
 
         <div class="cards two-columns">
           <article class="card reveal">
-            <span class="card-number">01</span>
             <h3>AI-автоматизация процессов</h3>
             <p>Сценарии, которые сокращают ручную работу, но не убирают ответственность человека там, где ошибка дорогая.</p>
             <ul class="check-list">
@@ -74,8 +73,7 @@
           </article>
 
           <article class="card reveal">
-            <span class="card-number">02</span>
-            <h3>Безопасность ботов и интеграций</h3>
+            <h3>Безопасность рабочих инструментов и интеграций</h3>
             <p>Проверка не «красоты кнопок», а серверной логики: кто может выполнить действие, над каким объектом и при каких условиях.</p>
             <ul class="check-list">
               <li>callback_data, кнопки и скрытые команды;</li>
@@ -92,43 +90,47 @@
     <section class="section section-muted" id="audit">
       <div class="container audit-grid">
         <div class="section-head reveal">
-          <p class="kicker">Bot security</p>
-          <h2>Что должно быть проверено до запуска Telegram-бота.</h2>
-          <p class="intro">Кнопка в интерфейсе — не право доступа. Любой callback и любой ID надо считать недоверенным вводом.</p>
+          <p class="kicker">Security audit</p>
+          <h2>Что проверяю до запуска рабочего инструмента.</h2>
+          <p class="intro">Это относится к Telegram-ботам, mini app, CRM и интеграциям: интерфейсная кнопка не является правом доступа, а внешний ID нельзя считать доверенным вводом.</p>
         </div>
 
         <div class="audit-list reveal">
           <div class="audit-item">
-            <span>01</span>
             <strong>Идентификация</strong>
             <p>Бэкенд берёт пользователя из Telegram update, а не из произвольного поля запроса.</p>
           </div>
           <div class="audit-item">
-            <span>02</span>
             <strong>Авторизация</strong>
             <p>Каждое чувствительное действие проверяет роль пользователя на сервере.</p>
           </div>
           <div class="audit-item">
-            <span>03</span>
             <strong>Владение объектом</strong>
             <p>Объект загружается не просто по ID, а с проверкой owner_id / tenant_id / разрешения.</p>
           </div>
           <div class="audit-item">
-            <span>04</span>
             <strong>Опасные операции</strong>
             <p>Удаление, массовая рассылка, выгрузка данных и финансовые действия требуют отдельного барьера.</p>
           </div>
           <div class="audit-item">
-            <span>05</span>
             <strong>Секреты</strong>
             <p>Токены не хранятся во фронтенде, публичном GitHub, логах и скриншотах.</p>
           </div>
           <div class="audit-item">
-            <span>06</span>
             <strong>Следы действий</strong>
             <p>По каждому важному действию остаётся audit log: кто, что, когда, над каким объектом, с каким результатом.</p>
           </div>
         </div>
+        <aside class="audit-result reveal">
+          <p class="kicker">На выходе</p>
+          <h3>Понятная карта рисков и действий.</h3>
+          <ul class="check-list">
+            <li>что можно оставить без изменений;</li>
+            <li>что нужно ограничить или перепроверить;</li>
+            <li>какие доступы, секреты и сценарии требуют контроля;</li>
+            <li>какой порядок безопасного исправления.</li>
+          </ul>
+        </aside>
       </div>
     </section>
 
@@ -183,7 +185,6 @@
             <strong>@a_raenko</strong>
           </a>
           <a href="mailto:alekseiraenko@yandex.ru">alekseiraenko@yandex.ru</a>
-          <a href="https://instagram.com/aleksey_c757mc" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
       </div>
     </section>
