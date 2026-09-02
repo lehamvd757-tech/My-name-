@@ -2,69 +2,196 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="AI-автоматизация и безопасность ботов, интеграций и рабочих процессов.">
-  <title>RAENKO — AI-автоматизация и безопасность</title>
-  <style>
-    :root{--ink:#0b1825;--muted:#586675;--paper:#f4f7f9;--line:#dbe3e9;--blue:#1268e8;--lime:#cafa5a}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 Inter,Arial,sans-serif}
-    .wrap{width:min(1120px,calc(100% - 40px));margin:auto}.top{background:#0b1825;color:#fff;padding:18px 0}.top .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px}
-    .brand{font-weight:800;letter-spacing:.1em}.brand small{display:block;color:#a6c9ff;font-size:10px}.top nav{display:flex;gap:20px}.top a{color:inherit;text-decoration:none;font-size:14px}
-    .hero{background:#0b1825;color:#fff;padding:100px 0 78px;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:560px;height:560px;border-radius:50%;right:-160px;bottom:-330px;border:1px solid #cafa5a;box-shadow:0 0 0 90px #cafa5a12,0 0 0 180px #1268e81f}
-    .hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:end}.eyebrow{color:var(--lime);font-size:13px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin:0 0 16px}
-    h1,h2,h3{letter-spacing:-.045em;line-height:1.08}h1{font-size:clamp(42px,6vw,74px);margin:0;max-width:760px}.lead{max-width:660px;color:#c9d8e7;font-size:clamp(18px,2vw,23px);margin:25px 0 30px}
-    .actions{display:flex;gap:12px;flex-wrap:wrap}.button{display:inline-flex;min-height:52px;align-items:center;justify-content:center;padding:0 22px;border-radius:4px;text-decoration:none;font-weight:750}.primary{background:var(--lime);color:#101b22}.ghost{border:1px solid #ffffff70;color:#fff}
-    .note{border-left:1px solid var(--lime);padding:5px 0 5px 20px;color:#d6e3ed}.note strong{display:block;color:#fff;font-size:18px;margin-bottom:6px}
-    section{padding:92px 0}.kicker{color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin:0 0 12px}h2{font-size:clamp(32px,4vw,52px);margin:0;max-width:800px}.intro{font-size:18px;color:var(--muted);max-width:700px;margin:20px 0 0}
-    .white{background:#fff}.cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:42px}.card{border:1px solid var(--line);padding:30px;min-height:330px}.card-id,.number{color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.08em}.card h3{font-size:28px;margin:54px 0 10px}.card p{color:var(--muted);margin:0;font-size:17px}.card ul{list-style:none;padding:0;margin:22px 0 0}.card li{margin:9px 0;padding-left:19px;position:relative}.card li:before{content:"—";color:var(--blue);position:absolute;left:0;font-weight:800}
-    .steps{display:grid;grid-template-columns:repeat(4,1fr);margin-top:45px;border-left:1px solid var(--line);border-top:1px solid var(--line)}.step{padding:25px 23px 30px;background:#fafbfd;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-height:200px}.step h3{font-size:21px;margin:35px 0 8px}.step p{font-size:15px;color:var(--muted);margin:0}
-    .fit{background:linear-gradient(135deg,#e7f0ff,#f9fcff 62%,#f2ffd6)}.fit-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px}.fit-list{list-style:none;padding:0;margin:4px 0 0;border-top:1px solid #b6cde7}.fit-list li{font-size:18px;font-weight:600;padding:17px 0;border-bottom:1px solid #b6cde7}.fit-list li:before{content:"+";color:var(--blue);margin-right:12px}.warning{margin-top:20px;border-left:3px solid var(--blue);padding:16px 19px;color:#425466;background:#ffffff85}
-    .cta{background:var(--blue);color:#fff;padding:82px 0}.cta .kicker{color:var(--lime)}.cta .wrap{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}.cta p{max-width:650px;color:#d8e8ff;font-size:18px}.cta .button{min-width:210px}
-    footer{background:#08121d;color:#c6d1dc;padding:27px 0;font-size:14px}footer .wrap{display:flex;justify-content:space-between;gap:20px}.links{display:flex;gap:17px;flex-wrap:wrap}.links a{color:inherit;text-decoration:none}
-    @media(max-width:800px){.top nav{display:none}.hero .wrap,.fit-grid,.cta .wrap{grid-template-columns:1fr}.hero{padding:76px 0 62px}.note{margin-top:12px}.cards{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}.cta .button{width:100%}}
-    @media(max-width:480px){.wrap{width:min(100% - 32px,1120px)}section{padding:66px 0}h1{font-size:44px}.steps{grid-template-columns:1fr}.card{min-height:0;padding:25px}footer .wrap{flex-direction:column}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и аудит безопасности Telegram-ботов, mini app, CRM и интеграций.">
+  <meta name="theme-color" content="#0b1220">
+  <title>RAENKO — AI-автоматизация и безопасность ботов</title>
+  <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
-  <header class="top"><div class="wrap">
-    <a class="brand" href="#top">RAENKO <small>AI AUTOMATION / SECURITY</small></a>
-    <nav aria-label="Навигация"><a href="#services">Направления</a><a href="#process">Как работаю</a><a href="#contact">Контакты</a></nav>
-  </div></header>
-  <main id="top">
-    <section class="hero"><div class="wrap">
-      <div><p class="eyebrow">AI-автоматизация и безопасность</p>
-        <h1>Меньше ручной работы. Больше контроля над процессами.</h1>
-        <p class="lead">Разбираю, где бизнес теряет время в заявках, документах и коммуникациях. Затем выстраиваю AI-автоматизацию и проверяю, чтобы боты и интеграции не создавали лишних рисков для данных.</p>
-        <div class="actions"><a class="button primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу в Telegram</a><a class="button ghost" href="#services">Что можно решить</a></div>
+  <a class="skip-link" href="#main">К содержанию</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-grid">
+      <a class="brand" href="#top" aria-label="RAENKO — на главный экран">
+        <span class="brand-mark">R</span>
+        <span>
+          <strong>RAENKO</strong>
+          <small>AI automation / bot security</small>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="#directions">Направления</a>
+        <a href="#audit">Аудит</a>
+        <a href="#process">Процесс</a>
+        <a href="#contact">Контакты</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero section-dark">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">AI-автоматизация · безопасность ботов · контроль интеграций</p>
+          <h1>Перевожу ручные процессы в управляемые AI-сценарии.</h1>
+          <p class="lead">Разбираю операции бизнеса, нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей и поведение ботов в нестандартных ситуациях.</p>
+          <div class="actions">
+            <a class="button button-primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу</a>
+            <a class="button button-secondary" href="#audit">Что проверять в боте</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel reveal" aria-label="Основной принцип работы">
+          <div class="panel-status">security first</div>
+          <h2>Автоматизация не должна становиться дырой в бизнесе.</h2>
+          <p>Если бот умеет удалять, отправлять, считать деньги, принимать заявки или видеть клиентские данные — у него должны быть серверные проверки прав, журнал действий и понятные границы доступа.</p>
+        </aside>
       </div>
-      <aside class="note"><strong>Не «внедрение ИИ ради ИИ».</strong>Начинаем с конкретной операции, которая занимает время, даёт ошибки или создаёт риск утечки.</aside>
-    </div></section>
-    <section class="white" id="services"><div class="wrap">
-      <p class="kicker">Два направления</p><h2>Автоматизация должна быть полезной. Безопасность — встроенной в процесс.</h2>
-      <div class="cards">
-        <article class="card"><span class="card-id">01 / AUTOMATION</span><h3>AI-автоматизация</h3><p>Убираем повторяющиеся действия, но сохраняем контроль человека там, где цена ошибки высока.</p><ul><li>обработка заявок и первичный сбор данных;</li><li>подготовка документов и черновиков ответов;</li><li>маршрутизация задач и контроль сроков;</li><li>сценарии для Telegram, WhatsApp и CRM.</li></ul></article>
-        <article class="card"><span class="card-id">02 / SECURITY</span><h3>Безопасность ботов и интеграций</h3><p>Проверяем, какие данные получает система, кто управляет доступами и где автоматизация может сработать не так, как задумано.</p><ul><li>доступы, роли, токены и API-ключи;</li><li>передача персональных и коммерческих данных;</li><li>опасные сценарии ботов и внешних сервисов;</li><li>инструкции по безопасной работе команды.</li></ul></article>
+    </section>
+
+    <section class="section" id="directions">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Фокус</p>
+          <h2>На сайте остаются только два направления: AI-автоматизация и безопасность.</h2>
+          <p class="intro">Без размывания в «визуальный контент», абстрактный prompt engineering и перечень несвязанных услуг. Смысл витрины — показать, что именно можно доверить, а где нужен контроль.</p>
+        </div>
+
+        <div class="cards two-columns">
+          <article class="card reveal">
+            <span class="card-number">01</span>
+            <h3>AI-автоматизация процессов</h3>
+            <p>Сценарии, которые сокращают ручную работу, но не убирают ответственность человека там, где ошибка дорогая.</p>
+            <ul class="check-list">
+              <li>первичная обработка заявок и сообщений;</li>
+              <li>подготовка черновиков документов и ответов;</li>
+              <li>маршрутизация задач между людьми и сервисами;</li>
+              <li>связки Telegram, Make, Airtable, CRM и AI-моделей;</li>
+              <li>регламенты для команды: что можно доверить боту, а что нельзя.</li>
+            </ul>
+          </article>
+
+          <article class="card reveal">
+            <span class="card-number">02</span>
+            <h3>Безопасность ботов и интеграций</h3>
+            <p>Проверка не «красоты кнопок», а серверной логики: кто может выполнить действие, над каким объектом и при каких условиях.</p>
+            <ul class="check-list">
+              <li>callback_data, кнопки и скрытые команды;</li>
+              <li>роли пользователей, админ-доступы и ownership checks;</li>
+              <li>секреты: bot token, API keys, webhook secrets;</li>
+              <li>защита от IDOR/BOLA и перебора ID;</li>
+              <li>журналирование действий и безопасная обработка ошибок.</li>
+            </ul>
+          </article>
+        </div>
       </div>
-    </div></section>
-    <section id="process"><div class="wrap">
-      <p class="kicker">Порядок работы</p><h2>Сначала разбираем задачу. Потом меняем процесс.</h2>
-      <div class="steps">
-        <article class="step"><span class="number">01</span><h3>Разбор</h3><p>Фиксируем процесс, участников, данные и стоимость ошибки.</p></article>
-        <article class="step"><span class="number">02</span><h3>Схема</h3><p>Определяем, что автоматизировать, что оставить человеку и где поставить контроль.</p></article>
-        <article class="step"><span class="number">03</span><h3>Настройка</h3><p>Собираем сценарий, интеграции и понятные правила работы.</p></article>
-        <article class="step"><span class="number">04</span><h3>Проверка</h3><p>Проверяем доступы, обработку данных и пограничные ситуации до запуска.</p></article>
+    </section>
+
+    <section class="section section-muted" id="audit">
+      <div class="container audit-grid">
+        <div class="section-head reveal">
+          <p class="kicker">Bot security</p>
+          <h2>Что должно быть проверено до запуска Telegram-бота.</h2>
+          <p class="intro">Кнопка в интерфейсе — не право доступа. Любой callback и любой ID надо считать недоверенным вводом.</p>
+        </div>
+
+        <div class="audit-list reveal">
+          <div class="audit-item">
+            <span>01</span>
+            <strong>Идентификация</strong>
+            <p>Бэкенд берёт пользователя из Telegram update, а не из произвольного поля запроса.</p>
+          </div>
+          <div class="audit-item">
+            <span>02</span>
+            <strong>Авторизация</strong>
+            <p>Каждое чувствительное действие проверяет роль пользователя на сервере.</p>
+          </div>
+          <div class="audit-item">
+            <span>03</span>
+            <strong>Владение объектом</strong>
+            <p>Объект загружается не просто по ID, а с проверкой owner_id / tenant_id / разрешения.</p>
+          </div>
+          <div class="audit-item">
+            <span>04</span>
+            <strong>Опасные операции</strong>
+            <p>Удаление, массовая рассылка, выгрузка данных и финансовые действия требуют отдельного барьера.</p>
+          </div>
+          <div class="audit-item">
+            <span>05</span>
+            <strong>Секреты</strong>
+            <p>Токены не хранятся во фронтенде, публичном GitHub, логах и скриншотах.</p>
+          </div>
+          <div class="audit-item">
+            <span>06</span>
+            <strong>Следы действий</strong>
+            <p>По каждому важному действию остаётся audit log: кто, что, когда, над каким объектом, с каким результатом.</p>
+          </div>
+        </div>
       </div>
-    </div></section>
-    <section class="fit"><div class="wrap fit-grid">
-      <div><p class="kicker">Когда это имеет смысл</p><h2>Не всем нужен сложный AI-проект.</h2><p class="intro">Имеет смысл начинать, когда проблема уже съедает время, деньги или управляемость.</p></div>
-      <div><ul class="fit-list"><li>Заявки теряются между мессенджерами, таблицами и сотрудниками.</li><li>Одни и те же документы и ответы собираются вручную.</li><li>У бота есть доступ к данным, но нет понятных правил и контроля.</li><li>Непонятно, какие ключи и сервисы подключены к процессу.</li></ul><p class="warning">Если задачу нельзя безопасно автоматизировать, это будет прямо обозначено на этапе разбора. Не продаю автоматизацию любой ценой.</p></div>
-    </div></section>
-    <section class="cta" id="contact"><div class="wrap">
-      <div><p class="kicker">Первичный разбор</p><h2>Опишите один процесс, который сейчас мешает работать.</h2><p>Достаточно написать: кто выполняет задачу, как она идёт сейчас и где возникают задержки, ошибки или сомнения в безопасности.</p></div>
-      <a class="button primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
-    </div></section>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">Порядок работы</p>
+          <h2>Сначала схема процесса. Потом автоматизация. Потом проверка рисков.</h2>
+        </div>
+
+        <div class="steps">
+          <article class="step reveal">
+            <span>01</span>
+            <h3>Разбор</h3>
+            <p>Фиксируем процесс, участников, данные, сервисы, точки ручной работы и цену ошибки.</p>
+          </article>
+          <article class="step reveal">
+            <span>02</span>
+            <h3>Архитектура</h3>
+            <p>Определяем, где нужен бот, где AI-модель, где таблица/CRM, а где действие должен подтверждать человек.</p>
+          </article>
+          <article class="step reveal">
+            <span>03</span>
+            <h3>Сборка</h3>
+            <p>Собираем сценарий, интеграции, промпты, поля данных и рабочий регламент.</p>
+          </article>
+          <article class="step reveal">
+            <span>04</span>
+            <h3>Проверка</h3>
+            <p>Проверяем права, callback, доступы, секреты, ошибки, логи и поведение при нестандартных действиях.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark compact" id="contact">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <p class="eyebrow">Первичный разбор</p>
+          <h2>Опишите один процесс, который сейчас мешает работать.</h2>
+          <p class="lead small">Нужно коротко: кто выполняет задачу, где она тормозит, какие данные используются и что будет неприятно, если бот ошибётся.</p>
+        </div>
+
+        <div class="contact-card reveal">
+          <a class="contact-main" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">
+            <span>Telegram</span>
+            <strong>@a_raenko</strong>
+          </a>
+          <a href="mailto:alekseiraenko@yandex.ru">alekseiraenko@yandex.ru</a>
+          <a href="https://wa.me/79281788808" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+          <a href="https://instagram.com/aleksey_c757mc" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </div>
+    </section>
   </main>
-  <footer><div class="wrap"><span>© 2026 RAENKO</span><div class="links"><a href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Telegram</a><a href="https://instagram.com/aleksey_c757mc" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://wa.me/79281788808" target="_blank" rel="noopener noreferrer">WhatsApp</a><a href="mailto:alekseiraenko@yandex.ru">Email</a></div></div></footer>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <span>© 2026 RAENKO</span>
+      <a href="#top">Наверх</a>
+    </div>
+  </footer>
+
+  <script src="/assets/main.js" defer></script>
 </body>
 </html>
