@@ -209,6 +209,21 @@ h3 {
 
 .lead.small {
   font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.brief-list {
+  display: grid;
+  gap: 8px;
+  max-width: 640px;
+  margin: 0;
+  padding-left: 22px;
+  color: #cfdae6;
+}
+
+.brief-list li::marker {
+  color: var(--accent);
+  font-weight: 800;
 }
 
 .intro {
