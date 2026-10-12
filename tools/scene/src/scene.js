@@ -2,7 +2,8 @@ import { CanvasTexture, FogExp2, MathUtils, PerspectiveCamera, Scene, WebGLRende
 import { advance, buildWorld } from './world.js';
 
 const SPEED = 9; // единиц сцены в секунду
-const SLOW_FRAME_MS = 26;
+const SLOW_FRAME_MS = 45; // ниже ~22 fps: снижаем разрешение
+const FREEZE_FRAME_MS = 70; // ниже ~14 fps: замораживаем кадр
 const SAMPLE_FRAMES = 90;
 
 function makeSprite() {
@@ -45,7 +46,7 @@ function start() {
   renderer.setClearColor(0x000000, 0);
 
   const scene = new Scene();
-  scene.fog = new FogExp2(0x06111e, 0.022);
+  scene.fog = new FogExp2(0x06111e, 0.014);
   const camera = new PerspectiveCamera(62, 1, 0.1, 160);
   const world = buildWorld({ sprite: makeSprite(), mobile });
   scene.add(world.group);
@@ -87,14 +88,13 @@ function start() {
     const average = sampleSum / sampleCount;
     sampleSum = 0;
     sampleCount = 0;
-    if (average <= SLOW_FRAME_MS) return;
-    if (level === 0 && pixelRatio > 1) {
+    if (average > FREEZE_FRAME_MS) {
+      frozen = true; // устройство не тянет анимацию: оставляем статичный кадр
+    } else if (average > SLOW_FRAME_MS && level === 0 && pixelRatio > 1) {
       pixelRatio = 1;
       renderer.setPixelRatio(1);
       renderer.setSize(hero.clientWidth, hero.clientHeight, false);
       level = 1;
-    } else {
-      frozen = true; // устройство не тянет анимацию: оставляем статичный кадр
     }
   }
 

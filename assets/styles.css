@@ -85,10 +85,10 @@ a { color: inherit; }
 /* Со сценой кольца-декор заменяются затемнением слева: текст остаётся читаемым поверх линий. */
 .hero.has-scene::after {
   inset: 0; width: auto; height: auto; right: 0; bottom: 0; z-index: 0; border: 0; border-radius: 0; box-shadow: none; pointer-events: none;
-  background: linear-gradient(90deg, rgba(6,17,30,.84) 0%, rgba(6,17,30,.6) 46%, rgba(6,17,30,.16) 100%);
+  background: linear-gradient(90deg, rgba(6,17,30,.74) 0%, rgba(6,17,30,.38) 46%, rgba(6,17,30,0) 100%);
 }
 @media (max-width: 760px) {
-  .hero.has-scene::after { background: rgba(6,17,30,.72); }
+  .hero.has-scene::after { background: rgba(6,17,30,.6); }
 }
 .hero-grid, .contact-grid, .audit-grid {
   position: relative; z-index: 1; display: grid; grid-template-columns: 1.12fr .88fr; gap: 68px; align-items: center;

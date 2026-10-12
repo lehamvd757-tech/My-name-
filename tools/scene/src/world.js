@@ -3,17 +3,18 @@ import {
   BufferGeometry,
   Float32BufferAttribute,
   Group,
-  LineBasicMaterial,
-  LineLoop,
+  Mesh,
+  MeshBasicMaterial,
   Points,
-  PointsMaterial
+  PointsMaterial,
+  TorusGeometry
 } from 'three';
 
 export const RING_COUNT = 34;
 export const RING_GAP = 7;
 export const DEPTH = RING_COUNT * RING_GAP;
 const NEAR_Z = 4;
-const FADE_FAR = 92;
+const FADE_FAR = 130;
 
 // Детерминированный генератор: сцена одинакова при каждой загрузке.
 function mulberry32(seed) {
@@ -26,18 +27,6 @@ function mulberry32(seed) {
   };
 }
 
-function ringGeometry(segments, radius) {
-  const positions = new Float32Array(segments * 3);
-  for (let i = 0; i < segments; i += 1) {
-    const a = (i / segments) * Math.PI * 2;
-    positions[i * 3] = Math.cos(a) * radius;
-    positions[i * 3 + 1] = Math.sin(a) * radius;
-  }
-  const geometry = new BufferGeometry();
-  geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
-  return geometry;
-}
-
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 
 export function buildWorld({ sprite = null, mobile = false } = {}) {
@@ -48,20 +37,22 @@ export function buildWorld({ sprite = null, mobile = false } = {}) {
   for (let i = 0; i < RING_COUNT; i += 1) {
     const polygon = i % 5 === 0;
     const lime = i % 3 === 0;
-    const material = new LineBasicMaterial({
-      color: lime ? 0xb7ff4a : 0x2f7df6,
+    const material = new MeshBasicMaterial({
+      color: lime ? 0xb7ff4a : 0x3d8bff,
       transparent: true,
       opacity: 1,
       fog: false,
       depthWrite: false
     });
-    const ring = new LineLoop(ringGeometry(polygon ? 6 : 72, 4.2 + rand() * 1.6), material);
+    // Кольца объёмные (тор), а не линии в 1 px: ближние толще, это и даёт ощущение глубины.
+    const radius = 4.4 + rand() * 2.2;
+    const ring = new Mesh(new TorusGeometry(radius, lime ? 0.05 : 0.036, 6, polygon ? 6 : 96), material);
     ring.rotation.z = rand() * Math.PI;
     ring.userData = {
       index: i,
       angle: ring.rotation.z,
       spin: (rand() - 0.5) * 0.25,
-      baseOpacity: lime ? 0.9 : 0.8
+      baseOpacity: lime ? 0.95 : 0.85
     };
     rings.push(ring);
     group.add(ring);
@@ -80,10 +71,10 @@ export function buildWorld({ sprite = null, mobile = false } = {}) {
   geometry.setAttribute('position', new Float32BufferAttribute(positions, 3));
   const material = new PointsMaterial({
     color: 0xcfe8ff,
-    size: 0.18,
+    size: 0.34,
     map: sprite,
     transparent: true,
-    opacity: 0.85,
+    opacity: 0.95,
     depthWrite: false,
     blending: AdditiveBlending,
     sizeAttenuation: true
@@ -106,7 +97,7 @@ export function advance(world, travel, t) {
     ring.rotation.z = ring.userData.angle + t * spin;
     const far = clamp01(1 - -z / FADE_FAR);
     const near = clamp01((NEAR_Z - z) / 7);
-    ring.material.opacity = baseOpacity * Math.pow(far, 1.4) * near;
+    ring.material.opacity = baseOpacity * Math.pow(far, 1.1) * near;
   }
   const shift = ((travel % DEPTH) + DEPTH) % DEPTH;
   world.pointsA.position.z = shift;
