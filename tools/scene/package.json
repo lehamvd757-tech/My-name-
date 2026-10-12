@@ -7,11 +7,11 @@
   "scripts": {
     "build": "esbuild src/scene.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --outfile=../../assets/scene.js",
     "test": "node test/fallback.test.mjs && node test/assets.test.mjs",
-    "fonts": "mkdir -p ../../assets/fonts && cp node_modules/@fontsource-variable/manrope/files/manrope-cyrillic-wght-normal.woff2 ../../assets/fonts/manrope-cyrillic-a1.woff2 && cp node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2 ../../assets/fonts/manrope-latin-a1.woff2 && cp node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-cyrillic-wght-normal.woff2 ../../assets/fonts/jetbrains-mono-cyrillic-a1.woff2 && cp node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2 ../../assets/fonts/jetbrains-mono-latin-a1.woff2"
+    "fonts": "mkdir -p ../../assets/fonts && rm -f ../../assets/fonts/*.woff2 && cp node_modules/@fontsource/prata/files/prata-cyrillic-400-normal.woff2 ../../assets/fonts/prata-cyrillic-a2.woff2 && cp node_modules/@fontsource/prata/files/prata-latin-400-normal.woff2 ../../assets/fonts/prata-latin-a2.woff2 && cp node_modules/@fontsource-variable/jost/files/jost-cyrillic-wght-normal.woff2 ../../assets/fonts/jost-cyrillic-a2.woff2 && cp node_modules/@fontsource-variable/jost/files/jost-latin-wght-normal.woff2 ../../assets/fonts/jost-latin-a2.woff2"
   },
   "devDependencies": {
-    "@fontsource-variable/jetbrains-mono": "^5.3.0",
-    "@fontsource-variable/manrope": "^5.3.0",
+    "@fontsource-variable/jost": "^5.3.0",
+    "@fontsource/prata": "^5.3.0",
     "esbuild": "0.24.0"
   }
 }
