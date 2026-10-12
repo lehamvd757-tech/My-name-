@@ -144,6 +144,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.12; let
 
 /* Заголовок: объёмный металлический градиент с тенью */
 .tagline {
+  padding: .06em .12em .2em; margin-left: -.12em; margin-bottom: -.2em;
   color: #fff;
   background: linear-gradient(180deg, #ffffff 0%, #f1ffd6 42%, #b9f05a 100%);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -173,7 +174,8 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.12; let
 /* Кнопка: выпуклая, с глянцем и свечением */
 .btn-cta {
   position: relative; width: 100%; justify-content: center; padding: 18px 24px; border-radius: 12px; overflow: hidden;
-  color: var(--on-accent); font-weight: 700;
+  color: var(--on-accent); font-family: var(--font); font-size: 16px; font-weight: 600; letter-spacing: .02em; text-transform: none; line-height: 1.2;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .45);
   background: linear-gradient(180deg, #e4ff82 0%, #c2ff3d 48%, #92dc12 100%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, .85), inset 0 -3px 0 rgba(60, 100, 0, .45), 0 0 0 1px rgba(150, 220, 20, .8), 0 8px 0 -2px rgba(70, 110, 0, .55), 0 16px 34px rgba(194, 255, 61, .38), 0 0 46px rgba(194, 255, 61, .3);
   transition: box-shadow .3s ease, filter .3s ease, transform .2s ease;
