@@ -241,6 +241,10 @@ h1, h2, h3 { font-weight: 700; line-height: 1.04; letter-spacing: -.04em; }
 .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1); transition-delay: calc(var(--i, 0) * 90ms); }
 .js .reveal.is-visible { opacity: 1; transform: none; }
 
+.direction:nth-child(2), .step:nth-child(2) { --i: 1; }
+.step:nth-child(3) { --i: 2; }
+.step:nth-child(4) { --i: 3; }
+
 /* ---- 6. Адаптив ------------------------------------------------------------- */
 @media (max-width: 1040px) {
   .hero-inner { grid-template-columns: 1fr; gap: 26px; }
