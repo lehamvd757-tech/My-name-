@@ -17,3 +17,12 @@ if ('IntersectionObserver' in window && revealItems.length) {
 } else {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 }
+
+const header = document.querySelector('.site-header');
+const hero = document.querySelector('.hero');
+
+if (header && hero && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => {
+    header.classList.toggle('on-hero', entry.isIntersecting);
+  }, { rootMargin: '-72px 0px 0px 0px' }).observe(hero);
+}

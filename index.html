@@ -6,12 +6,13 @@
   <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и проверка безопасности рабочих инструментов, данных и интеграций.">
   <meta name="theme-color" content="#0b1220">
   <title>RAENKO — AI-автоматизация и безопасность инструментов</title>
+  <link rel="preload" as="image" href="/assets/hero-a1.webp" fetchpriority="high">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
   <a class="skip-link" href="#main">К содержанию</a>
 
-  <header class="site-header" id="top">
+  <header class="site-header on-hero" id="top">
     <div class="container header-grid">
       <a class="brand" href="#top" aria-label="RAENKO — на главный экран">
         <span class="brand-mark">R</span>
@@ -32,23 +33,23 @@
 
   <main id="main">
     <section class="hero section-dark">
-      <canvas class="hero-scene" id="hero-scene" aria-hidden="true"></canvas>
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow">AI-автоматизация · безопасность инструментов · контроль интеграций</p>
-          <h1>Перевожу ручные процессы в управляемые AI-сценарии.</h1>
-          <p class="lead">Разбираю операции бизнеса, нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей и реакции рабочих инструментов на нестандартные ситуации.</p>
-          <div class="actions">
-            <a class="button button-primary" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу</a>
-            <a class="button button-secondary" href="#audit">Что входит в проверку</a>
-          </div>
+      <img class="hero-poster" src="/assets/hero-a1.webp" width="1920" height="1072" alt="" fetchpriority="high" decoding="async">
+      <canvas class="hero-scene" id="hero-scene" data-image="/assets/hero-a1.webp" data-depth="/assets/hero-depth-a1.webp" aria-hidden="true"></canvas>
+
+      <div class="container hero-inner">
+        <div class="hero-main">
+          <p class="eyebrow hero-in">AI-автоматизация · безопасность инструментов · контроль интеграций</p>
+          <h1 class="hero-in">
+            <span class="wordmark">RAENKO</span>
+            <span class="tagline">Перевожу ручные процессы в управляемые AI-сценарии</span>
+          </h1>
         </div>
 
-        <aside class="hero-panel reveal" aria-label="Основной принцип работы">
-          <div class="panel-status">security first</div>
-          <h2>Автоматизация не должна создавать неконтролируемые риски.</h2>
-          <p>Если рабочий инструмент может удалять, отправлять, считать деньги, принимать заявки или видеть клиентские данные — ему нужны проверки прав, журнал действий и понятные границы доступа.</p>
-        </aside>
+        <div class="hero-side hero-in">
+          <p class="hero-lead">Нахожу участки для автоматизации и сразу проверяю риски: доступы, токены, персональные данные, права пользователей.</p>
+          <a class="text-cta" href="https://t.me/a_raenko" target="_blank" rel="noopener noreferrer">Обсудить задачу <span aria-hidden="true">→</span></a>
+          <p class="hero-note">Автоматизация не должна создавать неконтролируемые риски.</p>
+        </div>
       </div>
     </section>
 
