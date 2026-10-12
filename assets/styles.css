@@ -77,6 +77,19 @@ a { color: inherit; }
   content: ""; position: absolute; width: 480px; height: 480px; right: -190px; bottom: -245px;
   border: 1px solid rgba(183,255,74,.2); border-radius: 50%; box-shadow: 0 0 0 58px rgba(183,255,74,.035), 0 0 0 116px rgba(183,255,74,.025);
 }
+.hero-scene {
+  position: absolute; inset: 0; z-index: 0; display: block; width: 100%; height: 100%;
+  opacity: 0; transition: opacity 1.2s ease; pointer-events: none;
+}
+.hero-scene.is-ready { opacity: 1; }
+/* Со сценой кольца-декор заменяются затемнением слева: текст остаётся читаемым поверх линий. */
+.hero.has-scene::after {
+  inset: 0; width: auto; height: auto; right: 0; bottom: 0; z-index: 0; border: 0; border-radius: 0; box-shadow: none; pointer-events: none;
+  background: linear-gradient(90deg, rgba(6,17,30,.84) 0%, rgba(6,17,30,.6) 46%, rgba(6,17,30,.16) 100%);
+}
+@media (max-width: 760px) {
+  .hero.has-scene::after { background: rgba(6,17,30,.72); }
+}
 .hero-grid, .contact-grid, .audit-grid {
   position: relative; z-index: 1; display: grid; grid-template-columns: 1.12fr .88fr; gap: 68px; align-items: center;
 }

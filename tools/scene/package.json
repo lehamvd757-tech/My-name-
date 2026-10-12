@@ -1,0 +1,17 @@
+{
+  "name": "raenko-hero-scene",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Сборка WebGL-сцены первого экрана raenko.pro в assets/scene.js",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/scene.js --bundle --minify --format=iife --target=es2020 --legal-comments=none --outfile=../../assets/scene.js",
+    "test": "node test/world.test.mjs && node test/fallback.test.mjs"
+  },
+  "dependencies": {
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  }
+}
