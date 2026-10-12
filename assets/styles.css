@@ -88,7 +88,7 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.12; let
 /* ---- 2. Первый экран: картинка + карта глубины (WebGL) -------------------- */
 .hero {
   position: relative; display: flex; align-items: flex-end; min-height: 100svh; overflow: hidden; isolation: isolate;
-  padding: 0 0 clamp(32px, 5vw, 64px);
+  padding: calc(var(--header-h) + 24px) 0 clamp(32px, 5vw, 64px);
   background: #03080e url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAASACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzaA7ZVYdQa6KVF1GBXAAmUYPvXORjLiugsDFEpbceByaqyuZzJIkXToS4wZmGB7ViXDK0peRtzE1sXvlSgNuI3d6x7i3aM5xlfUUO1xRZWXqK04/+PJqKKByHN/x5rTtO+aUhuR6GiiplsSf/2Q==") center / cover no-repeat;
 }
 .hero::after {
