@@ -4,8 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="RAENKO: AI-автоматизация рабочих процессов и проверка безопасности рабочих инструментов, данных и интеграций.">
-  <meta name="theme-color" content="#0b1220">
+  <meta name="theme-color" content="#03080e">
   <title>RAENKO — AI-автоматизация и безопасность инструментов</title>
+  <link rel="canonical" href="https://raenko.pro/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="RAENKO">
+  <meta property="og:title" content="RAENKO — AI-автоматизация и безопасность инструментов">
+  <meta property="og:description" content="AI-автоматизация рабочих процессов и проверка безопасности рабочих инструментов, данных и интеграций.">
+  <meta property="og:url" content="https://raenko.pro/">
+  <meta property="og:image" content="https://raenko.pro/assets/og-a1.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-latin-a1.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/manrope-cyrillic-a1.woff2" crossorigin>
   <link rel="preload" as="image" href="/assets/hero-a1.webp" fetchpriority="high">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
@@ -26,7 +39,7 @@
         <a href="#directions">Направления</a>
         <a href="#audit">Аудит</a>
         <a href="#process">Процесс</a>
-        <a href="#contact">Контакты</a>
+        <a class="nav-contact" href="#contact">Контакты</a>
       </nav>
     </div>
   </header>
@@ -61,11 +74,12 @@
           <p class="intro">Сайт объясняет, какие задачи можно передать инструментам, где нужен человеческий контроль и как снизить риск при работе с данными.</p>
         </div>
 
-        <div class="cards two-columns">
-          <article class="card reveal">
+        <div class="directions">
+          <article class="direction reveal">
+            <p class="index">01 / Автоматизация</p>
             <h3>AI-автоматизация процессов</h3>
             <p>Сценарии, которые сокращают ручную работу, но не убирают ответственность человека там, где ошибка дорогая.</p>
-            <ul class="check-list">
+            <ul class="rows">
               <li>первичная обработка заявок и сообщений;</li>
               <li>подготовка черновиков документов и ответов;</li>
               <li>маршрутизация задач между людьми и сервисами;</li>
@@ -74,10 +88,11 @@
             </ul>
           </article>
 
-          <article class="card reveal">
+          <article class="direction reveal" style="--i:1">
+            <p class="index">02 / Безопасность</p>
             <h3>Безопасность рабочих инструментов и интеграций</h3>
             <p>Проверка не «красоты кнопок», а серверной логики: кто может выполнить действие, над каким объектом и при каких условиях.</p>
-            <ul class="check-list">
+            <ul class="rows">
               <li>callback_data, кнопки и скрытые команды;</li>
               <li>роли пользователей, админ-доступы и ownership checks;</li>
               <li>секреты: bot token, API keys, webhook secrets;</li>
@@ -89,7 +104,7 @@
       </div>
     </section>
 
-    <section class="section section-muted" id="audit">
+    <section class="section section-alt" id="audit">
       <div class="container audit-grid">
         <div class="section-head reveal">
           <p class="kicker">Security audit</p>
@@ -97,36 +112,45 @@
           <p class="intro">Это относится к Telegram-ботам, mini app, CRM и интеграциям: интерфейсная кнопка не является правом доступа, а внешний ID нельзя считать доверенным вводом.</p>
         </div>
 
-        <div class="audit-list reveal">
-          <div class="audit-item">
+        <ol class="ledger reveal">
+          <li class="ledger-row">
+            <span class="ledger-i">01</span>
             <strong>Идентификация</strong>
             <p>Бэкенд берёт пользователя из Telegram update, а не из произвольного поля запроса.</p>
-          </div>
-          <div class="audit-item">
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-i">02</span>
             <strong>Авторизация</strong>
             <p>Каждое чувствительное действие проверяет роль пользователя на сервере.</p>
-          </div>
-          <div class="audit-item">
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-i">03</span>
             <strong>Владение объектом</strong>
             <p>Объект загружается не просто по ID, а с проверкой owner_id / tenant_id / разрешения.</p>
-          </div>
-          <div class="audit-item">
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-i">04</span>
             <strong>Опасные операции</strong>
             <p>Удаление, массовая рассылка, выгрузка данных и финансовые действия требуют отдельного барьера.</p>
-          </div>
-          <div class="audit-item">
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-i">05</span>
             <strong>Секреты</strong>
             <p>Токены не хранятся во фронтенде, публичном GitHub, логах и скриншотах.</p>
-          </div>
-          <div class="audit-item">
+          </li>
+          <li class="ledger-row">
+            <span class="ledger-i">06</span>
             <strong>Следы действий</strong>
             <p>По каждому важному действию остаётся audit log: кто, что, когда, над каким объектом, с каким результатом.</p>
-          </div>
-        </div>
+          </li>
+        </ol>
+
         <aside class="audit-result reveal">
-          <p class="kicker">На выходе</p>
-          <h3>Понятная карта рисков и действий.</h3>
-          <ul class="check-list">
+          <div>
+            <p class="kicker">На выходе</p>
+            <h3>Понятная карта рисков и действий.</h3>
+          </div>
+          <ul class="rows">
             <li>что можно оставить без изменений;</li>
             <li>что нужно ограничить или перепроверить;</li>
             <li>какие доступы, секреты и сценарии требуют контроля;</li>
@@ -143,33 +167,37 @@
           <h2>Сначала схема процесса. Потом автоматизация. Потом проверка рисков.</h2>
         </div>
 
-        <div class="steps">
-          <article class="step reveal">
+        <ol class="steps">
+          <li class="step reveal">
+            <span class="step-i">01</span>
             <h3>Разбор</h3>
             <p>Фиксируем процесс, участников, данные, сервисы, точки ручной работы и цену ошибки.</p>
-          </article>
-          <article class="step reveal">
+          </li>
+          <li class="step reveal" style="--i:1">
+            <span class="step-i">02</span>
             <h3>Архитектура</h3>
             <p>Определяем, где нужен бот, где AI-модель, где таблица/CRM, а где действие должен подтверждать человек.</p>
-          </article>
-          <article class="step reveal">
+          </li>
+          <li class="step reveal" style="--i:2">
+            <span class="step-i">03</span>
             <h3>Сборка</h3>
             <p>Собираем сценарий, интеграции, промпты, поля данных и рабочий регламент.</p>
-          </article>
-          <article class="step reveal">
+          </li>
+          <li class="step reveal" style="--i:3">
+            <span class="step-i">04</span>
             <h3>Проверка</h3>
             <p>Проверяем права, callback, доступы, секреты, ошибки, логи и поведение при нестандартных действиях.</p>
-          </article>
-        </div>
+          </li>
+        </ol>
       </div>
     </section>
 
-    <section class="section section-dark compact" id="contact">
+    <section class="section contact" id="contact">
       <div class="container contact-grid">
         <div class="reveal">
-          <p class="eyebrow">Первичный разбор</p>
+          <p class="kicker">Первичный разбор</p>
           <h2>Опишите один процесс, который сейчас мешает работать.</h2>
-          <p class="lead small">Для первичного разбора достаточно трёх пунктов:</p>
+          <p class="lead">Для первичного разбора достаточно трёх пунктов:</p>
           <ol class="brief-list">
             <li>Какой процесс хотите упростить.</li>
             <li>Кто в нём участвует.</li>
@@ -182,7 +210,7 @@
             <span>Telegram</span>
             <strong>@a_raenko</strong>
           </a>
-          <a href="mailto:alekseiraenko@yandex.ru">alekseiraenko@yandex.ru</a>
+          <a class="contact-mail" href="mailto:alekseiraenko@yandex.ru">alekseiraenko@yandex.ru</a>
         </div>
       </div>
     </section>
@@ -199,4 +227,3 @@
   <script src="/assets/scene.js" defer></script>
 </body>
 </html>
-

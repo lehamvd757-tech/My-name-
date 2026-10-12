@@ -60,7 +60,10 @@ function start() {
   } catch (error) {
     gl = null;
   }
-  if (!gl) return; // нет WebGL: остаётся статичная картинка первого экрана
+  if (!gl) {
+    hero.setAttribute('data-scene', 'no-webgl');
+    return; // нет WebGL: остаётся статичная картинка первого экрана
+  }
 
   const vertex = compile(gl, gl.VERTEX_SHADER, VERTEX);
   const fragment = compile(gl, gl.FRAGMENT_SHADER, FRAGMENT);
@@ -142,7 +145,10 @@ function start() {
 
   function frame(now) {
     rafId = 0;
-    if (frozen || !inView || document.hidden) return;
+    if (frozen || !inView || document.hidden) {
+      if (frozen) hero.setAttribute('data-scene', 'frozen');
+      return;
+    }
     const dt = last ? Math.min((now - last) / 1000, 0.05) : 0;
     last = now;
     elapsed += dt;
@@ -150,11 +156,12 @@ function start() {
     current.y += (target.y - current.y) * 0.06;
     draw();
     if (dt) degrade(dt * 1000);
+    if (reduced && Math.abs(target.x - current.x) + Math.abs(target.y - current.y) < 0.002) return;
     rafId = window.requestAnimationFrame(frame);
   }
 
   function play() {
-    if (!ready || reduced || frozen || rafId || !inView || document.hidden) return;
+    if (!ready || frozen || rafId || !inView || document.hidden) return;
     last = 0;
     rafId = window.requestAnimationFrame(frame);
   }
@@ -170,18 +177,21 @@ function start() {
     ready = false;
     canvas.classList.remove('is-ready');
     hero.classList.remove('has-scene');
+    hero.setAttribute('data-scene', 'context-lost');
   });
 
   window.addEventListener('pointermove', (event) => {
     if (event.pointerType === 'touch') return;
     target.x = (event.clientX / window.innerWidth - 0.5) * 2;
     target.y = (event.clientY / window.innerHeight - 0.5) * 2;
+    if (reduced) play();
   }, { passive: true });
 
   window.addEventListener('deviceorientation', (event) => {
     if (event.gamma == null || event.beta == null) return;
     target.x = Math.max(-1, Math.min(1, event.gamma / 30));
     target.y = Math.max(-1, Math.min(1, (event.beta - 45) / 30));
+    if (reduced) play();
   }, { passive: true });
 
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
@@ -208,8 +218,9 @@ function start() {
     resize();
     draw();
     hero.classList.add('has-scene');
+    hero.setAttribute('data-scene', reduced ? 'parallax-only' : 'running');
     canvas.classList.add('is-ready');
-    play();
+    if (!reduced) play();
   }).catch(() => {
     // Не загрузились текстуры: остаётся статичная картинка.
   });

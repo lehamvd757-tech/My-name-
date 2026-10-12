@@ -8,7 +8,8 @@ const code = fs.readFileSync(new URL('../../../assets/scene.js', import.meta.url
 function run({ withCanvas, webgl }) {
   const canvasClasses = new Set();
   const heroClasses = new Set();
-  const hero = { classList: { add: (c) => heroClasses.add(c), remove: (c) => heroClasses.delete(c) } };
+  const heroAttrs = {};
+  const hero = { setAttribute: (k, v) => { heroAttrs[k] = v; }, classList: { add: (c) => heroClasses.add(c), remove: (c) => heroClasses.delete(c) } };
   const attrs = { 'data-image': '/a.webp', 'data-depth': '/d.webp' };
   const canvas = {
     classList: { add: (c) => canvasClasses.add(c), remove: (c) => canvasClasses.delete(c) },
@@ -38,7 +39,7 @@ function run({ withCanvas, webgl }) {
   win.window = win;
   win.self = win;
   vm.runInNewContext(code, win);
-  return { canvasClasses, heroClasses, warnings };
+  return { canvasClasses, heroClasses, heroAttrs, warnings };
 }
 
 const noCanvas = run({ withCanvas: false });
@@ -47,4 +48,5 @@ assert.equal(noCanvas.heroClasses.size, 0);
 const noWebgl = run({ withCanvas: true, webgl: false });
 assert.equal(noWebgl.heroClasses.has('has-scene'), false, 'has-scene must not be set without WebGL');
 assert.equal(noWebgl.canvasClasses.has('is-ready'), false);
+assert.equal(noWebgl.heroAttrs['data-scene'], 'no-webgl');
 console.log('fallback tests: OK');

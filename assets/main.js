@@ -1,3 +1,5 @@
+document.documentElement.classList.add('js');
+
 const revealItems = document.querySelectorAll('.reveal');
 
 if ('IntersectionObserver' in window && revealItems.length) {

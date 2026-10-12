@@ -53,14 +53,14 @@ void main() {
   uv = 0.5 + (uv - 0.5) / 1.14;
 
   // Медленное «дыхание» камеры вперёд-назад и лёгкое блуждание взгляда.
-  float dolly = (0.5 - 0.5 * cos(uTime * 0.32)) * uMotion;
-  vec2 drift = vec2(sin(uTime * 0.23), cos(uTime * 0.19) * 0.6) * 0.007 * uMotion;
-  vec2 look = uLook * vec2(0.026, 0.016) + drift;
+  float dolly = (0.5 - 0.5 * cos(uTime * 0.45)) * uMotion;
+  vec2 drift = vec2(sin(uTime * 0.23), cos(uTime * 0.19) * 0.6) * 0.012 * uMotion;
+  vec2 look = uLook * vec2(0.045, 0.028) + drift;
 
   vec2 uvp = uv;
   for (int i = 0; i < 4; i++) {
     float d = texture2D(uDepth, uvp).r;
-    float sc = 1.0 - 0.07 * dolly * (0.25 + 0.75 * d);
+    float sc = 1.0 - 0.12 * dolly * (0.25 + 0.75 * d);
     uvp = VP + (uv - VP) * sc + look * (d - 0.3);
   }
   uvp = clamp(uvp, 0.002, 0.998);
