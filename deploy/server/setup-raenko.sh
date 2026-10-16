@@ -76,7 +76,7 @@ step_certificate() {
 # Вызывается certbot по разу на каждый домен: дописывает значение TXT в /tmp/raenko-acme/txt и ждёт файл ready (до 20 минут).
 set -eu
 d=/tmp/raenko-acme
-printf '%s\n' "$CERTBOT_VALIDATION" >> "$d/txt"; chmod 666 "$d/txt"
+printf '%s %s\n' "$CERTBOT_DOMAIN" "$CERTBOT_VALIDATION" >> "$d/txt"; chmod 666 "$d/txt"
 # Флаг ready одноразовый: после него удаляется, чтобы второй вызов (www) снова ждал свою запись.
 for i in $(seq 1 240); do [ -e "$d/ready" ] && { rm -f "$d/ready"; exit 0; }; sleep 5; done
 echo "Таймаут ожидания DNS-записи"; exit 1
