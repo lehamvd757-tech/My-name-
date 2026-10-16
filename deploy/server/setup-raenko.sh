@@ -73,11 +73,12 @@ step_certificate() {
   install -d -m 1777 "$HOOK_DIR"
   cat > /usr/local/sbin/raenko-acme-auth <<'HOOK'
 #!/usr/bin/env bash
-# Вызывается certbot: публикует значение TXT в /tmp/raenko-acme/txt и ждёт файл ready (до 20 минут).
+# Вызывается certbot по разу на каждый домен: дописывает значение TXT в /tmp/raenko-acme/txt и ждёт файл ready (до 20 минут).
 set -eu
 d=/tmp/raenko-acme
 printf '%s\n' "$CERTBOT_VALIDATION" >> "$d/txt"; chmod 666 "$d/txt"
-for i in $(seq 1 240); do [ -e "$d/ready" ] && exit 0; sleep 5; done
+# Флаг ready одноразовый: после него удаляется, чтобы второй вызов (www) снова ждал свою запись.
+for i in $(seq 1 240); do [ -e "$d/ready" ] && { rm -f "$d/ready"; exit 0; }; sleep 5; done
 echo "Таймаут ожидания DNS-записи"; exit 1
 HOOK
   chmod 755 /usr/local/sbin/raenko-acme-auth
