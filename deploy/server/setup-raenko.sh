@@ -83,8 +83,10 @@ echo "Таймаут ожидания DNS-записи"; exit 1
 HOOK
   chmod 755 /usr/local/sbin/raenko-acme-auth
   rm -f "$HOOK_DIR/txt" "$HOOK_DIR/ready"
+  # Вывод и лог certbot копируются в /tmp (читаемо для диагностики без root).
+  trap 'cp -f /var/log/letsencrypt/letsencrypt.log /tmp/raenko-letsencrypt.log 2>/dev/null; chmod 644 /tmp/raenko-letsencrypt.log /tmp/raenko-certbot.out 2>/dev/null || true' EXIT
   certbot certonly --manual --preferred-challenges dns --manual-auth-hook /usr/local/sbin/raenko-acme-auth \
-    --non-interactive --agree-tos --register-unsafely-without-email --cert-name raenko.pro -d raenko.pro -d www.raenko.pro
+    --non-interactive --agree-tos --register-unsafely-without-email --cert-name raenko.pro -d raenko.pro -d www.raenko.pro 2>&1 | tee /tmp/raenko-certbot.out
   rm -rf "$HOOK_DIR" /usr/local/sbin/raenko-acme-auth
   echo "Готово: certificate"
 }
