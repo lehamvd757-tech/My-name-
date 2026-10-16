@@ -40,7 +40,7 @@
       ]
     },
     {
-      "source": "/assets/fonts/(.*)-a1.woff2",
+      "source": "/assets/fonts/(.*)-a2.woff2",
       "headers": [
         {
           "key": "Cache-Control",

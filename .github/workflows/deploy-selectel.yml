@@ -1,0 +1,121 @@
+name: Deploy raenko.pro to Selectel
+
+# Только ручной запуск. Автодеплоя нет: публикация по команде владельца.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-raenko-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      EXPECTED_HOST_FINGERPRINT: ${{ vars.DEPLOY_HOST_FINGERPRINT }}
+      RELEASE_DIR: /var/www/raenko/releases/${{ github.sha }}
+      CURRENT_LINK: /var/www/raenko/current
+
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+
+      - name: Validate production files
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in index.html robots.txt sitemap.xml assets/main.js assets/scene.js assets/styles.css \
+                   assets/hero-a1.webp assets/hero-depth-a1.webp assets/og-a1.jpg \
+                   assets/fonts/jost-cyrillic-a2.woff2 assets/fonts/jost-latin-a2.woff2 \
+                   assets/fonts/prata-cyrillic-a2.woff2 assets/fonts/prata-latin-a2.woff2; do
+            test -s "$f" || { echo "Missing or empty file: $f"; exit 1; }
+          done
+          test -n "$EXPECTED_HOST_FINGERPRINT" || { echo "Repository variable DEPLOY_HOST_FINGERPRINT is not set"; exit 1; }
+
+      - name: Configure deploy SSH key
+        shell: bash
+        run: |
+          set -euo pipefail
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/raenko_deploy
+          chmod 600 ~/.ssh/raenko_deploy
+
+      - name: Verify server host key
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh-keyscan -T 15 -t ed25519 "$DEPLOY_HOST" > /tmp/raenko_known_hosts
+          test -s /tmp/raenko_known_hosts
+          actual="$(ssh-keygen -lf /tmp/raenko_known_hosts -E sha256 | awk '{print $2}' | head -n1)"
+          echo "Server fingerprint: $actual"
+          test "$actual" = "$EXPECTED_HOST_FINGERPRINT" || { echo "ERROR: SSH host fingerprint mismatch"; exit 1; }
+          cat /tmp/raenko_known_hosts >> ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Upload immutable release
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" "mkdir -p '$RELEASE_DIR'"
+          tar -cf - index.html robots.txt sitemap.xml assets \
+            | ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" "tar -xf - -C '$RELEASE_DIR'"
+
+      - name: Validate release and switch atomically
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" \
+            "RELEASE_DIR='$RELEASE_DIR' CURRENT_LINK='$CURRENT_LINK' bash -s" <<'REMOTE'
+          set -euo pipefail
+          for f in index.html assets/main.js assets/scene.js assets/styles.css assets/hero-a1.webp; do
+            test -s "$RELEASE_DIR/$f" || { echo "Release validation failed: $f"; exit 1; }
+          done
+          previous="$(readlink -f "$CURRENT_LINK" || true)"
+          rm -f "${CURRENT_LINK}.next" "${CURRENT_LINK}.rollback"
+          ln -s "$RELEASE_DIR" "${CURRENT_LINK}.next"
+          mv -Tf "${CURRENT_LINK}.next" "$CURRENT_LINK"
+          if ! curl -fsS --max-time 20 --resolve raenko.pro:443:127.0.0.1 https://raenko.pro/ >/dev/null; then
+            echo "Health check failed; rolling back"
+            if [ -n "$previous" ] && [ -d "$previous" ]; then
+              ln -s "$previous" "${CURRENT_LINK}.rollback"
+              mv -Tf "${CURRENT_LINK}.rollback" "$CURRENT_LINK"
+            fi
+            exit 1
+          fi
+          echo "DEPLOYED $(basename "$RELEASE_DIR")"
+          REMOTE
+
+      - name: Verify headers on the server
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" '
+            set -e
+            h="$(curl -fsSI --max-time 20 --resolve raenko.pro:443:127.0.0.1 https://raenko.pro/)"
+            echo "$h" | grep -qi "^content-security-policy:" || { echo "CSP header missing"; exit 1; }
+            echo "$h" | grep -qi "^x-content-type-options: nosniff" || { echo "nosniff missing"; exit 1; }
+            code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 --resolve www.raenko.pro:443:127.0.0.1 https://www.raenko.pro/)"
+            test "$code" = "301" || { echo "Expected www redirect 301, got $code"; exit 1; }
+          '
+
+      - name: Keep latest five releases
+        shell: bash
+        run: |
+          set -euo pipefail
+          ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" '
+            set -e
+            cd /var/www/raenko/releases
+            current="$(readlink -f /var/www/raenko/current)"
+            count=0
+            for dir in $(ls -1dt -- */ 2>/dev/null || true); do
+              full="$(readlink -f "$dir")"
+              [ "$full" = "$current" ] && continue
+              count=$((count + 1))
+              [ "$count" -ge 5 ] && rm -rf -- "$dir"
+            done
+          '
