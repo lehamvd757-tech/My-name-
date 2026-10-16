@@ -101,7 +101,11 @@ step_enable() {
 }
 
 step_post_cutover() {
-  certbot reconfigure --cert-name raenko.pro --authenticator webroot --webroot-path "$ACME_ROOT" --non-interactive
+  # Сертификат был выпущен через ручную DNS-проверку: переводим продление на HTTP-01 (webroot)
+  # и убираем из настроек продления следы ручного хука.
+  certbot reconfigure --cert-name raenko.pro --authenticator webroot --webroot-path "$ACME_ROOT" \
+    --preferred-challenges http-01 --non-interactive
+  sed -i '/^manual_auth_hook/d;/^manual_cleanup_hook/d;/^manual_public_ip_logging_ok/d' /etc/letsencrypt/renewal/raenko.pro.conf
   certbot renew --cert-name raenko.pro --dry-run
   install -d /etc/letsencrypt/renewal-hooks/deploy
   printf '#!/bin/sh\nnginx -t && systemctl reload nginx\n' > /etc/letsencrypt/renewal-hooks/deploy/reload-nginx
