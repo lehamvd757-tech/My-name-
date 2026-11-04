@@ -28,3 +28,16 @@ if (header && hero && 'IntersectionObserver' in window) {
     header.classList.toggle('on-hero', entry.isIntersecting);
   }, { rootMargin: '-72px 0px 0px 0px' }).observe(hero);
 }
+
+const backToTop = document.querySelector('#back-to-top');
+
+if (backToTop) {
+  backToTop.addEventListener('click', () => {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, left: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+
+    if (window.location.hash) {
+      history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+    }
+  });
+}
