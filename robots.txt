@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://raenko.pro/sitemap.xml
+Sitemap: https://raenko.com/sitemap.xml
