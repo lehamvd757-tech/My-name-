@@ -389,3 +389,140 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.12; let
   .js .reveal { opacity: 1; transform: none; transition: none; }
   * { transition-duration: .01ms !important; }
 }
+
+/* ==========================================================================
+   Светлая система 2026 — архитектурная концепция.
+   Старые WebGL/неоновые правила выше сохранены для безопасного отката, но
+   полностью перекрыты этим слоем. Первый экран статичен и не запускает scene.js.
+   ========================================================================== */
+:root {
+  --bg: #f4efe6;
+  --bg-2: #eee5d9;
+  --bg-3: #e4d8c9;
+  --text: #25231f;
+  --muted: #6f675e;
+  --dim: #91877b;
+  --line: rgba(62, 52, 42, .13);
+  --line-2: rgba(62, 52, 42, .24);
+  --accent: #a8684a;
+  --accent-soft: #c48768;
+  --on-accent: #fffaf3;
+  --ice: #8c7b6d;
+  --blue: #7a6b60;
+}
+
+html, body { background: var(--bg); color: var(--text); }
+body::after { opacity: .025; mix-blend-mode: multiply; }
+::selection { background: #d9bca8; color: var(--text); }
+:focus-visible { outline-color: var(--accent); }
+
+/* Шапка и знак */
+.site-header,
+.site-header.on-hero {
+  color: var(--text); background: rgba(244, 239, 230, .88); border-bottom-color: var(--line);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+}
+.site-header::after { display: none; }
+.brand { gap: 15px; }
+.brand-mark {
+  position: relative; width: 48px; height: 42px; border: 0; border-radius: 0; padding-right: 4px;
+  color: var(--text); background: transparent; box-shadow: none; font-family: var(--font);
+  font-size: 0; font-weight: 700; line-height: 1; transform: skewX(-7deg);
+}
+.brand-mark::before,
+.brand-mark::after { content: ""; position: absolute; left: 5px; background: var(--text); }
+.brand-mark::before {
+  top: 5px; width: 29px; height: 8px; box-shadow: 8px 9px 0 -1px var(--text);
+  clip-path: polygon(0 0, 100% 0, 83% 100%, 18% 100%);
+}
+.brand-mark::after {
+  top: 20px; width: 31px; height: 17px;
+  clip-path: polygon(0 0, 31% 0, 100% 100%, 65% 100%, 29% 50%, 29% 100%, 0 100%);
+}
+.brand strong { font-size: 17px; font-weight: 500; letter-spacing: .3em; }
+.brand small { display: none; }
+.nav a { color: var(--text); font-size: 15px; font-weight: 450; text-shadow: none; }
+.nav a:hover, .nav a:focus-visible { color: var(--accent); background: rgba(168, 104, 74, .08); box-shadow: none; }
+.status { display: none; }
+
+/* Первый экран */
+.hero.hero-light {
+  align-items: center; min-height: 100svh; padding: calc(var(--header-h) + 48px) 0 54px;
+  background: var(--bg); color: var(--text);
+}
+.hero.hero-light::before {
+  content: ""; position: absolute; left: var(--gutter); right: var(--gutter); top: var(--header-h);
+  z-index: 2; height: 1px; background: var(--line); pointer-events: none;
+}
+.hero.hero-light::after {
+  background: linear-gradient(90deg, rgba(244,239,230,.98) 0%, rgba(244,239,230,.9) 35%, rgba(244,239,230,.08) 63%, transparent 78%);
+}
+.hero-light .hero-poster { object-fit: cover; object-position: center; transform: none; }
+.hero-light .hero-inner { display: block; }
+.hero-light .hero-main { position: relative; z-index: 3; width: min(780px, 57vw); padding-top: 18px; }
+.hero-light h1 { margin: 0 0 clamp(34px, 5vw, 58px); }
+.hero-light .tagline {
+  display: block; max-width: 9.5em; margin: 0; padding: 0; color: var(--text);
+  background: none; -webkit-text-fill-color: currentColor; filter: none; text-shadow: none;
+  font-family: var(--font); font-size: clamp(48px, 5.55vw, 92px); font-weight: 350;
+  line-height: .99; letter-spacing: -.045em;
+}
+.hero-light .btn-cta {
+  display: inline-flex; width: auto; min-width: 300px; justify-content: space-between; gap: 34px;
+  padding: 18px 25px; border: 1px solid rgba(120, 70, 46, .18); border-radius: 11px;
+  color: var(--on-accent); background: var(--accent); text-shadow: none;
+  box-shadow: 0 14px 34px rgba(112, 67, 44, .16);
+}
+.hero-light .btn-cta::before { display: none; }
+.hero-light .btn-cta:hover, .hero-light .btn-cta:focus-visible {
+  color: var(--on-accent); background: #955a40; filter: none; transform: translateY(-2px);
+  box-shadow: 0 18px 40px rgba(112, 67, 44, .22);
+}
+.hero-light .btn-cta:active { transform: translateY(0); box-shadow: 0 8px 18px rgba(112, 67, 44, .18); }
+
+/* Остальные разделы переводятся в ту же светлую палитру */
+.section, .site-footer { background: var(--bg); border-color: var(--line); }
+.section-alt { background: var(--bg-2); }
+.kicker, .eyebrow, .contact-main span, .work-go { color: var(--accent); text-shadow: none; }
+.intro, .direction > p:not(.index), .ledger-row p, .step p, .work-text, .contact .lead { color: var(--muted); }
+.rows li, .brief-list li { color: #4e4841; }
+.rows li:hover { color: var(--text); background: linear-gradient(90deg, rgba(168,104,74,.08), transparent 85%); }
+.rows li::before, .brief-list li::before { border-color: var(--accent); }
+.ledger-row:hover { background: linear-gradient(90deg, rgba(168,104,74,.07), transparent 70%); }
+.ledger-row:hover strong { color: var(--accent); }
+.audit-result {
+  border-color: var(--line-2); border-left-color: var(--accent);
+  background: linear-gradient(120deg, rgba(168,104,74,.07), rgba(255,255,255,.18));
+}
+.step::before { background: var(--bg); border-color: var(--accent); box-shadow: 0 0 0 6px var(--bg); }
+.step:hover::before { background: var(--accent); box-shadow: 0 0 0 6px var(--bg), 0 0 0 9px rgba(168,104,74,.12); }
+.work-text strong { color: var(--text); }
+.work a:hover, .work a:focus-visible { background: linear-gradient(90deg, rgba(168,104,74,.08), transparent 80%); }
+.work a:hover .work-name, .work a:focus-visible .work-name { color: var(--accent); }
+.contact {
+  background: #e9dfd2 url("/assets/hero-light-a1.webp") 70% 50% / cover no-repeat;
+}
+.contact::before { background: linear-gradient(90deg, rgba(244,239,230,.97), rgba(244,239,230,.88) 55%, rgba(244,239,230,.72)); }
+.brief-list li { color: #4e4841; }
+.contact-main:hover, .contact-main:focus-visible { background: linear-gradient(90deg, rgba(168,104,74,.08), transparent 85%); }
+.contact-main:hover strong, .contact-main:focus-visible strong { color: var(--accent); }
+.site-footer { color: var(--dim); }
+
+@media (max-width: 900px) {
+  .nav a.nav-contact { color: var(--accent); border-color: rgba(168,104,74,.4); }
+  .hero.hero-light::after { background: linear-gradient(90deg, rgba(244,239,230,.98), rgba(244,239,230,.78) 58%, rgba(244,239,230,.18)); }
+  .hero-light .hero-main { width: min(650px, 75vw); }
+}
+
+@media (max-width: 640px) {
+  .brand-mark { width: 40px; transform: skewX(-7deg) scale(.88); transform-origin: left center; }
+  .brand strong { font-size: 14px; letter-spacing: .24em; }
+  .hero.hero-light { align-items: flex-start; min-height: 100svh; padding-top: calc(var(--header-h) + 72px); }
+  .hero.hero-light::after {
+    background: linear-gradient(180deg, rgba(244,239,230,.98) 0%, rgba(244,239,230,.9) 44%, rgba(244,239,230,.15) 72%);
+  }
+  .hero-light .hero-poster { object-position: 67% center; }
+  .hero-light .hero-main { width: 100%; }
+  .hero-light .tagline { max-width: 9em; font-size: clamp(42px, 13vw, 62px); line-height: 1.01; }
+  .hero-light .btn-cta { min-width: 0; width: 100%; max-width: 360px; }
+}
