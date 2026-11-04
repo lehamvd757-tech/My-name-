@@ -1,7 +1,8 @@
-name: Deploy raenko.pro to Selectel
+name: Deploy raenko.com to Selectel
 
-# Только ручной запуск. Автодеплоя нет: публикация по команде владельца.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +31,8 @@ jobs:
         run: |
           set -euo pipefail
           for f in index.html robots.txt sitemap.xml assets/main.js assets/scene.js assets/styles.css \
-                   assets/hero-a1.webp assets/hero-depth-a1.webp assets/og-a1.jpg \
+                   assets/hero-a1.webp assets/hero-depth-a1.webp assets/hero-light-a1.webp \
+                   assets/og-a1.jpg assets/og-a2.jpg assets/raenko-mark-a2.svg \
                    assets/fonts/jost-cyrillic-a2.woff2 assets/fonts/jost-latin-a2.woff2 \
                    assets/fonts/prata-cyrillic-a2.woff2 assets/fonts/prata-latin-a2.woff2; do
             test -s "$f" || { echo "Missing or empty file: $f"; exit 1; }
@@ -72,14 +74,15 @@ jobs:
           ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" \
             "RELEASE_DIR='$RELEASE_DIR' CURRENT_LINK='$CURRENT_LINK' bash -s" <<'REMOTE'
           set -euo pipefail
-          for f in index.html assets/main.js assets/scene.js assets/styles.css assets/hero-a1.webp; do
+          for f in index.html assets/main.js assets/scene.js assets/styles.css \
+                   assets/hero-light-a1.webp assets/og-a2.jpg assets/raenko-mark-a2.svg; do
             test -s "$RELEASE_DIR/$f" || { echo "Release validation failed: $f"; exit 1; }
           done
           previous="$(readlink -f "$CURRENT_LINK" || true)"
           rm -f "${CURRENT_LINK}.next" "${CURRENT_LINK}.rollback"
           ln -s "$RELEASE_DIR" "${CURRENT_LINK}.next"
           mv -Tf "${CURRENT_LINK}.next" "$CURRENT_LINK"
-          if ! curl -fsS --max-time 20 --resolve raenko.pro:443:127.0.0.1 https://raenko.pro/ >/dev/null; then
+          if ! curl -fsS --max-time 20 --resolve raenko.com:443:127.0.0.1 https://raenko.com/ >/dev/null; then
             echo "Health check failed; rolling back"
             if [ -n "$previous" ] && [ -d "$previous" ]; then
               ln -s "$previous" "${CURRENT_LINK}.rollback"
@@ -96,10 +99,10 @@ jobs:
           set -euo pipefail
           ssh -i ~/.ssh/raenko_deploy "$DEPLOY_USER@$DEPLOY_HOST" '
             set -e
-            h="$(curl -fsSI --max-time 20 --resolve raenko.pro:443:127.0.0.1 https://raenko.pro/)"
+            h="$(curl -fsSI --max-time 20 --resolve raenko.com:443:127.0.0.1 https://raenko.com/)"
             echo "$h" | grep -qi "^content-security-policy:" || { echo "CSP header missing"; exit 1; }
             echo "$h" | grep -qi "^x-content-type-options: nosniff" || { echo "nosniff missing"; exit 1; }
-            code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 --resolve www.raenko.pro:443:127.0.0.1 https://www.raenko.pro/)"
+            code="$(curl -sS -o /dev/null -w "%{http_code}" --max-time 20 --resolve www.raenko.com:443:127.0.0.1 https://www.raenko.com/)"
             test "$code" = "301" || { echo "Expected www redirect 301, got $code"; exit 1; }
           '
 
